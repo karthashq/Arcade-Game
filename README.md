@@ -17,4 +17,4 @@ frontend-nanodegree-arcade-game
   It is very simple. Just visit this [link.](https://ashokviswa96.github.io/Arcade-Game/)
 
 ## Known Issues
-  **Do not press "*ENTER*" when playing unless you want to restart. It will reset the game.**.It will be resolved soon.
+  **Do not press "*ENTER*" when playing unless you want to restart. It will reset the game.**.
