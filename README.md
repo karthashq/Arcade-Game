@@ -1,5 +1,5 @@
 # frontend-nanodegree-arcade-game
-===============================
+
 
 ## How to run the game?
   It is very simple. Just visit this [link.](https://ashokviswa96.github.io/Arcade-Game/)
