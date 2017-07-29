@@ -15,7 +15,7 @@
   * You lose when you lose all the 5 lives before reaching the river.
 
 ## Controls
-  * Use the up(⌃), down(⌄), left(‹), and right(›) ,arrow keys to move the player on the screen respectively.
+  * Use the up, down, left, and right arrow keys to move the player on the screen respectively.
   * Press Enter anytime to restart the game.
 
 
