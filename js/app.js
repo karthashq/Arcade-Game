@@ -4,7 +4,7 @@ var Enemy = function() {
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    // a helper we've provided to easily load images.
     this.sprite = 'images/enemy-bug.png';
     this.x=getRandomInt(1,400);
     this.y=getRandomInt(12,220);
@@ -19,8 +19,8 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    //Create a variable won for player .
-      if(player.lives>0 && player.reached <=5){
+    // TODO: create a variable won for player to improve the game .
+      if(player.lives>0 && player.reached <15){
     var speed=getRandomInt(1,250)*dt;
    this.x +=speed;
     if(this.x>500){
@@ -45,7 +45,7 @@ var player= function(){
   this.height=160;
   this.reached=0;
   this.lives=5;
-}
+};
 
 //The update function of the player class is used to check for collisions
 //and update the position of the player to starting values..
@@ -57,7 +57,6 @@ if(DidheLose){
   console.log("U were killed :(");
   player.x=250;
   player.y=350;
-  player.reached=0;
   player.lives -=1;
 }
 }
@@ -109,14 +108,14 @@ player.prototype.handleInput = function (e) {
 var allEnemies=[];
 var noofEnemies=getRandomInt(1,5);
 for(var i=0;i<noofEnemies;i++){
-  allEnemies[i]=new Enemy;
+  allEnemies[i]=new Enemy();
 }
 
-var player =new player;
+var player =new player();
 //for new positions for the enemy every time the player reaches the river.
 var CreateEnemies=function(){
 for(var i=0;i<noofEnemies;i++){
-  allEnemies[i]=new Enemy;
+  allEnemies[i]=new Enemy();
 }
 };
 
@@ -136,7 +135,7 @@ document.addEventListener('keyup', function(e) {
 });
 
 
-//It is used to generate random position and speed and no.of the enemy bugs.
+//It is called by the instances of Enemy to generate random position,speed and no.of the enemy bugs.
 function getRandomInt(min, max) {
 min = Math.ceil(min);
 max = Math.floor(max);
