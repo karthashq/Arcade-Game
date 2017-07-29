@@ -1,5 +1,6 @@
 # frontend-nanodegree-arcade-game
-
+  This is one of the projects I had to do for the Udacity frontend nanodegree . It is a simple arcade game built using
+  Canvas and JavaScript.
 
 ## How to run the game?
   It is very simple. Just visit this [link.](https://ashokviswa96.github.io/Arcade-Game/)
@@ -14,7 +15,7 @@
   * You lose when you lose all the 5 lives before reaching the river.
 
 ## Controls
-  * Use the up, down, left, and right,arrow keys to move the player on the screen respectively.
+  * Use the up(⌃), down(⌄), left(‹), and right(›) ,arrow keys to move the player on the screen respectively.
   * Press Enter anytime to restart the game.
 
 
