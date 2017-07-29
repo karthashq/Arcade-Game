@@ -1,5 +1,5 @@
 # frontend-nanodegree-arcade-game
-  This is one of the projects I had to do for the Udacity frontend nanodegree . It is a simple arcade game built using
+  This is one of the projects I had to do for the Udacity frontend nanodegree program. . It is a simple arcade game built using
   Canvas and JavaScript.
 
 ## How to run the game?
