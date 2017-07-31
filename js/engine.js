@@ -139,21 +139,8 @@ var Engine = (function(global) {
       });
       //renders the player char on screen
       player.render();
-      //to display the no.of times the player as reached the river
-      //and the lives of the player
-      ctx.drawImage(Resources.get('images/Star.png'), 410, 50, 50, 60);
-      ctx.drawImage(Resources.get('images/Heart.png'), 310, 55, 40, 60);
-      ctx.fillText(" :  " + player.lives, 350, 95);
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 0.5;
-      ctx.font = "30px Arial";
-      ctx.fillStyle = "rgba(255,255,255,.9)";
-      ctx.fillText("Reach 15 stars to win the game", 40, 30);
-      ctx.strokeText("Reach 15 stars to win the game", 40, 30);
-      ctx.fillStyle = "yellow";
-      ctx.font = "25px Impact";
-      ctx.fillText(" :  " + player.reached, 460, 95);
-      //to display that the player has won
+      player.renderGameData();
+      //to display the layer has won the game.
       if (player.reached >= 15) {
          ctx.fillStyle = "rgba(0,255,0,.8)";
          ctx.fillRect(0, 50, 600, 535);
@@ -169,7 +156,7 @@ var Engine = (function(global) {
          //to restart the game once the player presses Enter.
          window.addEventListener('keyup', function(e) {
             if (e.keyCode == '13') {
-               reset();
+               player.reset();
                console.log(e.keyCode);
             }
          }, false);
@@ -190,7 +177,7 @@ var Engine = (function(global) {
          //to restart the game once the player presses Enter.
          window.addEventListener('keyup', function(e) {
             if (e.keyCode == '13') {
-               reset();
+               player.reset();
                console.log(e.keyCode);
             }
          }, false);
@@ -200,13 +187,7 @@ var Engine = (function(global) {
     * handle game reset states - maybe a new game menu or a game over screen
     * those sorts of things. It's only called once by the init() method.
     */
-   //to reset the value of player lives and reached values for every new game.
-   function reset() {
-      player.lives = 5;
-      player.reached = 0;
-      ctx.fillStyle = "rgba(255,255,255,0)";
-      ctx.fillRect(0, 0, 500, 600);
-   }
+   function reset() {}
    /* Go ahead and load all of the images we know we're going to need to
     * draw our game level. Then set init as the callback method, so that when
     * all of these images are properly loaded our game will start.
