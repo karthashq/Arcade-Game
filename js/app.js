@@ -1,3 +1,6 @@
+//The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
+//With strict mode, you can not, for example, use undeclared variables.
+"use strict";
 // Enemies our player must avoid
 var Enemy = function() {
    // Variables applied to each of our instances go here,
@@ -17,6 +20,7 @@ var Enemy = function() {
    }
    this.x = getRandomInt(1, 400);
    this.y = getRandomInt(100, 220);
+   this.speed = getRandomInt(1, 250);
 };
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -26,11 +30,20 @@ Enemy.prototype.update = function(dt) {
    // all computers.
    // TODO: create a variable won for player to improve the game .
    if (player.lives > 0 && player.reached < 15) {
-      var speed = getRandomInt(1, 250) * dt;
-      this.x += speed;
+      var k = this.speed * dt;
+      this.x += k;
+      //to keep the enemy moving within the screen
       if (this.x > 500) {
          this.x = -100;
       }
+   }
+};
+//the function below is used to check for collisions between enemy bugs and the player.
+Enemy.prototype.checkCollisions = function(i, ax, ay, aw, ah, bx, by, bw, bh) {
+   if (i === 1) {
+      return ax < bx + bw - 40 && ay < by + bh - 100 && bx < ax + aw - 25 && by < ay + ah - 145; //caterpillar
+   } else {
+      return ax < bx + bw - 25 && ay < by + bh - 120 && bx < ax + aw - 25 && by < ay + ah - 100; //bug
    }
 };
 // Draw the enemy on the screen, required method for game
@@ -40,7 +53,7 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var player = function() {
+var Player = function() {
    this.sprite = ("images/char-boy.png");
    this.x = 200;
    this.y = 350;
@@ -51,30 +64,33 @@ var player = function() {
 };
 //The update function of the player class is used to check for collisions
 //and update the position of the player to starting values..
-player.prototype.update = function() {
+Player.prototype.update = function() {
    var DidheCollide;
    //to check thte collision of player with all the enemies.
    for (var i = 0; i < allEnemies.length; i++) {
-      if (allEnemies[i].type === 1) {
-         DidheCollide = collisionCaterpillar(allEnemies[i].x, allEnemies[i].y, allEnemies[i].width, allEnemies[i].height, player.x, player.y, player.width, player.height);
-      } else {
-         DidheCollide = collisionBug(allEnemies[i].x, allEnemies[i].y, allEnemies[i].width, allEnemies[i].height, player.x, player.y, player.width, player.height);
-      }
-      //to reduce the live and reset player position once a collision occurs.
+      DidheCollide = allEnemies[i].checkCollisions(allEnemies[i].type, allEnemies[i].x, allEnemies[i].y, allEnemies[i].width, allEnemies[i].height, this.x, this.y, this.width, this.height);
+      //to reduce the life and reset player position once a collision occurs.
       if (DidheCollide) {
          console.log("U were killed :(");
-         this.x = 250;
-         this.y = 350;
          this.lives -= 1;
+         this.x = 200;
+         this.y = 400;
       }
    }
 };
+//to reset the value of player lives and reached values for every new game.
+Player.prototype.reset = function() {
+   this.lives = 5;
+   this.reached = 0;
+   ctx.fillStyle = "rgba(255,255,255,0)";
+   ctx.fillRect(0, 0, 500, 600);
+};
 //this function renders the player on the screen for the first time.
-player.prototype.render = function() {
+Player.prototype.render = function() {
    ctx.drawImage(Resources.get(this.sprite), this.x, this.y, this.width, this.height);
 };
 //function to move the player sprite according to the key pressed.
-player.prototype.handleInput = function(e) {
+Player.prototype.handleInput = function(e) {
    if (this.x > 9 && this.x < 401 && this.y > 0 && this.y < 401) {
       switch (e) {
          case 'left':
@@ -110,6 +126,22 @@ player.prototype.handleInput = function(e) {
       this.y = 400;
    }
 };
+//to display the no.of times the player as reached the river
+//and the lives of the player
+Player.prototype.renderGameData = function() {
+   ctx.drawImage(Resources.get('images/Star.png'), 410, 50, 50, 60);
+   ctx.drawImage(Resources.get('images/Heart.png'), 310, 55, 40, 60);
+   ctx.fillText(" :  " + this.lives, 350, 95);
+   ctx.strokeStyle = "black";
+   ctx.lineWidth = 0.5;
+   ctx.font = "30px Arial";
+   ctx.fillStyle = "rgba(255,255,255,.9)";
+   ctx.fillText("Reach 15 stars to win the game", 40, 30);
+   ctx.strokeText("Reach 15 stars to win the game", 40, 30);
+   ctx.fillStyle = "yellow";
+   ctx.font = "25px Impact";
+   ctx.fillText(" :  " + this.reached, 460, 95);
+};
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -119,7 +151,7 @@ var noofEnemies = getRandomInt(1, 5);
 for (var i = 0; i < noofEnemies; i++) {
    allEnemies[i] = new Enemy();
 }
-var player = new player();
+var player = new Player();
 //for new positions for the enemy every time the player reaches the river.
 var CreateEnemies = function() {
    for (var i = 0; i < noofEnemies; i++) {
@@ -143,10 +175,3 @@ function getRandomInt(min, max) {
    max = Math.floor(max);
    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
-//the function below is used to check for collisions between enemy bugs and the player.
-var collisionCaterpillar = function(ax, ay, aw, ah, bx, by, bw, bh) {
-   return ax < bx + bw - 40 && ay < by + bh - 110 && bx < ax + aw - 30 && by < ay + ah - 140;
-};
-var collisionBug = function(ax, ay, aw, ah, bx, by, bw, bh) {
-   return ax < bx + bw - 25 && ay < by + bh - 120 && bx < ax + aw - 25 && by < ay + ah - 100;
-};
