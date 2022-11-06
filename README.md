@@ -3,8 +3,8 @@
   Canvas and JavaScript.
 
 ## How to run the game?
- * It is very simple. Just visit this [link.](https://ashokviswa96.github.io/Arcade-Game/)
- * You can download the repository from [here](https://github.com/ashokviswa96/Arcade-Game/archive/master.zip) and play locally..
+ * It is very simple. Just visit this [link.](https://karthashq.github.io/Arcade-Game/)
+ * You can download the repository from [here](https://github.com/karthashq/Arcade-Game/archive/master.zip) and play locally..
 
 ## HOW TO PLAY?
 
